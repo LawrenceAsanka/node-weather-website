@@ -10,15 +10,14 @@ weatherForm.addEventListener('submit', (e) => {
     messageOne.textContent = 'Loading.....';
     messageTwo.textContent = '';
 
-    fetch('http://api.weatherstack.com/current?access_key=b7fc7bccf1ad00a1bff3640a026715f0&query='+location).then((response) => {
+    fetch('/weather?address='+location).then((response) => {
         response.json().then((data) => {
             if (data.error) {
-                // console.log(data.error.info);
-                messageOne.textContent = data.error.info;
+                messageOne.textContent = data.error;
             } else {
 
                 messageOne.textContent = location;
-                messageTwo.textContent =  data.current.weather_descriptions[0] + '. It is currently ' + data.current.temperature + ' degress out. There is a ' + data.current.precip + '% chance of rain.';
+                messageTwo.textContent =  data.forecast;
             }
         })
     })
